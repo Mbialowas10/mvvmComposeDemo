@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Counter()
+                    Counter(CounterViewModel())
                 }
             }
         }
@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Counter(){
+fun Counter(viewModel: CounterViewModel){
     // need to import compose runtime
     // add the folloiwng line to top of file under imports
     // import androidx.compose.runtime.*
@@ -61,9 +61,7 @@ fun Counter(){
 
     // This is where MVVM comes to the rescue
 
-    var counter by remember{
-        mutableStateOf(0)
-    }
+
     //var counter:Int = 0
 
 
@@ -74,9 +72,9 @@ fun Counter(){
             .height(IntrinsicSize.Min)
             .aspectRatio(2f),
         onClick = {
-            counter += 1
+            viewModel.increaseValue()
         }) {
-            Text(text = "This button has been clicked ${counter} times.")
+            Text(text = "This button has been clicked ${viewModel.counter} times.")
         }
 }
 
